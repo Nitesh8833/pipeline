@@ -1,3 +1,22 @@
+How do you read a CSV/Parquet/JSON file into a PySpark DataFrame?
+How do you optimize a PySpark job that is running slow?
+How do you perform window functions in PySpark? (ROW_NUMBER, RANK, SUM over partition, etc.)
+How do you handle null values in PySpark (drop, fill, replace)?
+How do you explode an array column into multiple rows?
+How do you handle out-of-memory errors in PySpark executors?
+You are given 500 GB of transaction data daily in CSV. How will you process and load it into BigQuery using Dataproc?
+How do you handle production issues when a PySpark job fails in a critical SLA pipeline?
+
+During the discussion, I was also asked questions 
+related to the projects I had completed. 
+When asked how much time it would take to convert the
+
+output into a standard format using an LLM model such
+ as ChatGPT or Copilot, I explained that under normal
+ circumstances it would take approximately 10 to 15
+ minutes. In case of any issues or complexities,
+ the entire process would still be completed within a
+ maximum of 30 minutes.
 # ---------------- ENV → config file selection ----------------
 def resolve_env(env_raw: str) -> str:
     env = (env_raw or "DEV").upper()
