@@ -1,3 +1,37 @@
+
+import sys
+import json
+from google.cloud import storage
+
+def load_config_from_gcs(gcs_path: str) -> dict:
+    """Load JSON config file from GCS given a gs:// path."""
+    if not gcs_path.startswith("gs://"):
+        raise ValueError("Config path must start with gs://")
+
+    # remove "gs://" prefix
+    path_no_prefix = gcs_path[5:]
+    bucket_name, blob_path = path_no_prefix.split("/", 1)
+
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(blob_path)
+
+    config_text = blob.download_as_text()
+    return json.loads(config_text)
+
+if __name__ == "__main__":
+    # Airflow passes JSON_CONFIG_PATH here
+    config_path = sys.argv[1]
+    print(f"Config path received: {config_path}")
+
+    cfg = load_config_from_gcs(config_path)
+
+    # Example: access values inside JSON
+    print("Full config:", cfg)
+    print("Send email?", cfg.get("send_email"))
+    print("Database name:", cfg.get("database", {}).get("dbname"))
+
+****************************************************
 How do you read a CSV/Parquet/JSON file into a PySpark DataFrame?
 How do you optimize a PySpark job that is running slow?
 How do you perform window functions in PySpark? (ROW_NUMBER, RANK, SUM over partition, etc.)
